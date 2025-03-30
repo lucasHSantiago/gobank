@@ -12,8 +12,12 @@ dropdb:
 
 .PHONY: migrateup
 migrateup:
-	migrate -path db/migrate -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose up
+	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose up
 
 .PHONY: migratedown
 migratedown:
-	migrate -path db/migrate -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down
+	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down
+
+.PHONY: sqlc
+sqlc:
+	sqlc generate
