@@ -21,3 +21,7 @@ migratedown:
 .PHONY: sqlc
 sqlc:
 	sqlc generate
+
+.PHONY: test
+test:
+	go test -v -cover ./...
