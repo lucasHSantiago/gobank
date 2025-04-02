@@ -10,6 +10,8 @@ import (
 )
 
 func createRandomEntry(t *testing.T) Entry {
+	t.Helper()
+
 	account := createRandomAccount(t)
 
 	arg := CreateEntryParams{
