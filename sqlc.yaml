@@ -9,6 +9,6 @@ sql:
         package: "db"
         out: "./db/sqlc/"
         sql_package: "database/sql"
-        emit_json_tags: true #check if this going to be necessary in the future
+        emit_json_tags: true
         emit_interface: true #check if this going to be necessary in the future
         emit_empty_slices: true

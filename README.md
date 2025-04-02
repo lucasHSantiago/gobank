@@ -5,3 +5,4 @@ Functionalities:
 - migrate
 - unit test
 - CI (with github actions)
+- API (gin)
