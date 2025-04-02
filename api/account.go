@@ -9,13 +9,14 @@ import (
 	db "github.com/lucasHSantiago/gobank/db/sqlc"
 )
 
-type CreateAccountRequest struct {
+type createAccountRequest struct {
 	Owner    string `json:"owner" binding:"required"`
-	Currency string `json:"currency" binding:"required,oneof=USD EUR"`
+	Currency string `json:"currency" binding:"required,currency"`
 }
 
+// @TODO: unit test
 func (server *Server) createAccount(ctx *gin.Context) {
-	var req CreateAccountRequest
+	var req createAccountRequest
 	if err := ctx.ShouldBind(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
@@ -40,6 +41,7 @@ type getAccountRequest struct {
 	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
+// @TODO: unit test
 func (server *Server) getAccount(ctx *gin.Context) {
 	var req getAccountRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -95,6 +97,7 @@ type updateAccountRequest struct {
 	Balance int64 `json:"balance" binding:"required"`
 }
 
+// @TODO: unit test
 func (server *Server) updateAccount(ctx *gin.Context) {
 	var req updateAccountRequest
 	if err := ctx.ShouldBind(&req); err != nil {
@@ -125,6 +128,7 @@ type deleteAccountRequest struct {
 	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
+// @TODO: unit test
 func (server *Server) deleteAccount(ctx *gin.Context) {
 	var req deleteAccountRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
