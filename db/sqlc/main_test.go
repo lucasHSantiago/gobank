@@ -7,11 +7,7 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
-)
-
-const (
-	dbDrive  = "postgres"
-	dbSource = "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable"
+	"github.com/lucasHSantiago/gobank/db/util"
 )
 
 var testQueries *Queries
@@ -20,7 +16,9 @@ var testDb *sql.DB
 func TestMain(m *testing.M) {
 	var err error
 
-	testDb, err = sql.Open(dbDrive, dbSource)
+	config, err := util.LoadConfig("../../")
+
+	testDb, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)
 	}
