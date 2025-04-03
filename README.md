@@ -8,3 +8,4 @@ Functionalities:
 - API (gin)
 - env variables (with Viper)
 - mock tests (with gomock)
+- validator (with go-playground/validator)
