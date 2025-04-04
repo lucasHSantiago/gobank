@@ -12,11 +12,11 @@ dropdb:
 
 .PHONY: migrateup
 migrateup:
-	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose up
+	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose up $(or $(n))
 
 .PHONY: migratedown
 migratedown:
-	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down
+	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down $(or $(n))
 
 .PHONY: sqlc
 sqlc:
