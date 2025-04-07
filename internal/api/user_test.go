@@ -14,9 +14,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/lib/pq"
-	mockdb "github.com/lucasHSantiago/gobank/db/mock"
-	db "github.com/lucasHSantiago/gobank/db/sqlc"
-	"github.com/lucasHSantiago/gobank/db/util"
+	mockdb "github.com/lucasHSantiago/gobank/internal/db/mock"
+	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
 	"github.com/stretchr/testify/require"
 )
 
