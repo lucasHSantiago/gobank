@@ -62,7 +62,7 @@ func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency s
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			//@TODO: adjust this error message
+			err = fmt.Errorf("account [%d] doesn't exist", accountID)
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
 			return account, false
 		}
