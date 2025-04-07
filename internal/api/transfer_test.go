@@ -10,18 +10,22 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
-	mockdb "github.com/lucasHSantiago/gobank/db/mock"
-	db "github.com/lucasHSantiago/gobank/db/sqlc"
-	"github.com/lucasHSantiago/gobank/db/util"
+	mockdb "github.com/lucasHSantiago/gobank/internal/db/mock"
+	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
 	"github.com/stretchr/testify/require"
 )
 
 func TestCreateTransfer(t *testing.T) {
 	amount := int64(10)
 
-	account1 := randomAccount()
-	account2 := randomAccount()
-	account3 := randomAccount()
+	user1, _ := randomUser(t)
+	user2, _ := randomUser(t)
+	user3, _ := randomUser(t)
+
+	account1 := randomAccount(user1.Username)
+	account2 := randomAccount(user2.Username)
+	account3 := randomAccount(user3.Username)
 
 	account1.Currency = util.USD
 	account2.Currency = util.USD

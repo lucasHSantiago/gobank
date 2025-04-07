@@ -12,11 +12,11 @@ dropdb:
 
 .PHONY: migrateup
 migrateup:
-	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose up $(or $(n))
+	migrate -path internal/db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose up $(or $(n))
 
 .PHONY: migratedown
 migratedown:
-	migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down $(or $(n))
+	migrate -path internal/db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down $(or $(n))
 
 .PHONY: sqlc
 sqlc:
@@ -28,8 +28,8 @@ test:
 
 .PHONY: server
 server:
-	go run main.go
+	go run ./cmd/gobank/main.go
 
 .PHONY: mock
 mock:
-	mockgen -package mockdb -destination db/mock/store.go github.com/lucasHSantiago/gobank/db/sqlc Store
+	mockgen -package mockdb -destination db/mock/store.go github.com/lucasHSantiago/gobank/internal/db/sqlc Store

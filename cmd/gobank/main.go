@@ -5,9 +5,9 @@ import (
 	"log"
 
 	_ "github.com/lib/pq"
-	"github.com/lucasHSantiago/gobank/api"
-	db "github.com/lucasHSantiago/gobank/db/sqlc"
-	"github.com/lucasHSantiago/gobank/db/util"
+	"github.com/lucasHSantiago/gobank/internal/api"
+	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
 )
 
 func main() {

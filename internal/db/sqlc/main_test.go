@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
-	"github.com/lucasHSantiago/gobank/db/util"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
 )
 
 var testQueries *Queries

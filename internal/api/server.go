@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
-	db "github.com/lucasHSantiago/gobank/db/sqlc"
-	"github.com/lucasHSantiago/gobank/db/util"
-	"github.com/lucasHSantiago/gobank/token"
+	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
+	"github.com/lucasHSantiago/gobank/internal/token"
 )
 
 type Server struct {
@@ -44,13 +44,15 @@ func (server *Server) setupRouter() {
 	router.POST("/user", server.createUser)
 	router.POST("/user/login", server.loginUser)
 
-	router.POST("/account", server.createAccount)
-	router.GET("/account/:id", server.getAccount)
-	router.GET("/account", server.listAccounts)
-	router.PUT("/account/:id", server.updateAccount)
-	router.DELETE("/account/:id", server.deleteAccount)
+	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
 
-	router.POST("/transfer", server.createTransfer)
+	authRoutes.POST("/account", server.createAccount)
+	authRoutes.GET("/account/:id", server.getAccount)
+	authRoutes.GET("/account", server.listAccounts)
+	authRoutes.PUT("/account/:id", server.updateAccount)
+	authRoutes.DELETE("/account/:id", server.deleteAccount)
+
+	authRoutes.POST("/transfer", server.createTransfer)
 
 	server.router = router
 }
