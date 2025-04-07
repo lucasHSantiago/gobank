@@ -59,21 +59,8 @@ func (server *Server) getAccount(ctx *gin.Context) {
 		return
 	}
 
-	account, err := server.store.GetAccount(ctx, req.ID)
-	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			ctx.JSON(http.StatusNotFound, errorResponse(err))
-			return
-		}
-
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
-		return
-	}
-
-	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
-	if account.Owner != authPayload.Username {
-		err := errors.New("account doesn't belong to the authenticated user")
-		ctx.JSON(http.StatusForbidden, errorResponse(err))
+	account := server.getAccountInternal(ctx, req.ID)
+	if account == nil {
 		return
 	}
 
@@ -116,7 +103,6 @@ type updateAccountRequest struct {
 	Balance int64 `json:"balance" binding:"required"`
 }
 
-// @TODO: update to use token to authorize
 func (server *Server) updateAccount(ctx *gin.Context) {
 	var req updateAccountRequest
 	if err := ctx.ShouldBind(&req); err != nil {
@@ -127,6 +113,10 @@ func (server *Server) updateAccount(ctx *gin.Context) {
 	var uri updateAccountUri
 	if err := ctx.ShouldBindUri(&uri); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	if server.getAccountInternal(ctx, uri.ID) == nil {
 		return
 	}
 
@@ -161,4 +151,27 @@ func (server *Server) deleteAccount(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusNoContent, nil)
+}
+
+func (server *Server) getAccountInternal(ctx *gin.Context, accountId int64) *db.Account {
+	account, err := server.store.GetAccount(ctx, accountId)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			err := errors.New("account doesn't exist")
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return nil
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return nil
+	}
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if account.Owner != authPayload.Username {
+		err := errors.New("account doesn't belong to the authenticated user")
+		ctx.JSON(http.StatusForbidden, errorResponse(err))
+		return nil
+	}
+
+	return &account
 }
