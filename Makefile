@@ -1,6 +1,6 @@
 .PHONY: postgres
 postgres:
-	docker run --name postgres -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin -d postgres:alpine
+	docker run --name postgres --network bank-network -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin -d postgres:alpine
 
 .PHONY: createdb
 createdb:
