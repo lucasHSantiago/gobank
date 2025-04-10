@@ -36,4 +36,4 @@ server:
 
 .PHONY: mock
 mock:
-	mockgen -package mockdb -destination db/mock/store.go github.com/lucasHSantiago/gobank/internal/db/sqlc Store
+	mockgen -package mockdb -destination internal/db/mock/store.go github.com/lucasHSantiago/gobank/internal/db/sqlc Store

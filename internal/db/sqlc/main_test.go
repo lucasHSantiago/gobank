@@ -16,7 +16,7 @@ var testDb *sql.DB
 func TestMain(m *testing.M) {
 	var err error
 
-	config, err := util.LoadConfig("../../")
+	config, err := util.LoadConfig("../../../")
 
 	testDb, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
