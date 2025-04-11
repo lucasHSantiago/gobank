@@ -37,3 +37,10 @@ server:
 .PHONY: mock
 mock:
 	mockgen -package mockdb -destination internal/db/mock/store.go github.com/lucasHSantiago/gobank/internal/db/sqlc Store
+
+.PHONY: proto
+proto:
+	rm -f proto/gen/*.go
+	protoc --proto_path=proto --go_out=proto/gen --go_opt=paths=source_relative \
+    --go-grpc_out=proto/gen --go-grpc_opt=paths=source_relative \
+    proto/*.proto
