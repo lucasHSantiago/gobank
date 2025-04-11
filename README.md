@@ -11,3 +11,5 @@ Functionalities:
 - validator (with go-playground/validator)
 - User authorization and authentication (with JWT)
 - Configuration of docker (with Dockerfile and docker-compose)
+- Data base documentation (with dbdocs)
+    - https://dbdocs.io/lucasHSantiago/gobank?view=relationships
