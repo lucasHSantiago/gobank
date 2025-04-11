@@ -33,6 +33,10 @@ test:
 .PHONY: server
 server:
 	go run ./cmd/gobank/main.go
+	
+.PHONY: grpc
+grpc:
+	go run ./cmd/gobank/main.go -grpc
 
 .PHONY: mock
 mock:
@@ -44,3 +48,7 @@ proto:
 	protoc --proto_path=proto --go_out=proto/gen --go_opt=paths=source_relative \
     --go-grpc_out=proto/gen --go-grpc_opt=paths=source_relative \
     proto/*.proto
+
+.PHONY: evans
+evans:
+	evans --host localhost --port 9090 -p proto --proto service_gobank.proto repl
