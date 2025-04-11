@@ -65,7 +65,6 @@ func runGrpcServer(config util.Config, store db.Store) {
 	}
 }
 
-// @TODO: change to use flags to run gin or grpc
 func runGinServer(config util.Config, store db.Store) {
 	server, err := api.NewServer(config, store)
 	if err != nil {

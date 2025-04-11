@@ -49,6 +49,7 @@ proto:
     --go-grpc_out=proto/gen --go-grpc_opt=paths=source_relative \
     proto/*.proto
 
-.PHONY: evans
-evans:
-	evans --host localhost --port 9090 -p proto --proto service_gobank.proto repl
+.PHONY: grpcui
+grpcui:
+	grpcui -plaintext localhost:9090
+
