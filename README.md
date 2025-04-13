@@ -16,3 +16,4 @@ Functionalities:
 - gRPC
 - gRPC Gateway
 - OpenAPI documentation for gRPC
+- SwaggerUI
