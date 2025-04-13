@@ -14,3 +14,5 @@ Functionalities:
 - Data base documentation (with dbdocs)
     - https://dbdocs.io/lucasHSantiago/gobank?view=relationships
 - gRPC
+- gRPC Gateway
+- OpenAPI documentation for gRPC
