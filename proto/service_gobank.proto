@@ -11,7 +11,7 @@ option go_package = "github.com/lucasHSantiago/gobank/proto/gen";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Go Bank API"
-    version: "1.0"
+    version: "1.1"
     contact: {
       name: "Lucas H. Santiago"
       url: "https://github.com/lucashsantiago"
@@ -25,11 +25,19 @@ service GoBank {
       post: "/v1/create_user"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to create a new user"
+      summary: "Create new user"
+    };
   }
   rpc LoginUser(LoginUserRequest) returns (LoginUserResponse) {
     option (google.api.http) = {
       post: "/v1/login_user"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to login user and get access and refresh tokens"
+      summary: "Login user"
     };
   }
 }
