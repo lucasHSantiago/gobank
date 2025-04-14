@@ -6,13 +6,19 @@ import (
 
 	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
 	"github.com/lucasHSantiago/gobank/internal/db/util"
+	"github.com/lucasHSantiago/gobank/internal/validator"
 	"github.com/lucasHSantiago/gobank/proto/gen"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *Server) LoginUser(ctx context.Context, req *gen.LoginUserRequest) (*gen.LoginUserResponse, error) {
+	if violations := validLoginUserRequest(req); violations != nil {
+		return nil, invalidArgumentError(violations)
+	}
+
 	user, err := server.store.GetUser(ctx, req.GetUsername())
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -60,4 +66,16 @@ func (server *Server) LoginUser(ctx context.Context, req *gen.LoginUserRequest) 
 	}
 
 	return response, nil
+}
+
+func validLoginUserRequest(req *gen.LoginUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+	if err := validator.ValidateUsername(req.Username); err != nil {
+		violations = append(violations, fieldViolation("username", err))
+	}
+
+	if err := validator.ValidatePassword(req.Password); err != nil {
+		violations = append(violations, fieldViolation("password", err))
+	}
+
+	return violations
 }
