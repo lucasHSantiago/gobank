@@ -21,7 +21,15 @@ require (
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
 )
 
-require google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb // indirect
+require (
+	github.com/golang-migrate/migrate/v4 v4.18.2
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb
+)
+
+require (
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.13.2 // indirect
