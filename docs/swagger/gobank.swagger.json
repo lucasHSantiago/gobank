@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Go Bank API",
-    "version": "1.1",
+    "version": "1.2",
     "contact": {
       "name": "Lucas H. Santiago",
       "url": "https://github.com/lucashsantiago"
@@ -87,6 +87,40 @@
           "GoBank"
         ]
       }
+    },
+    "/v1/update_user": {
+      "patch": {
+        "summary": "Update user",
+        "description": "Use this API to update a user",
+        "operationId": "GoBank_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/genUpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/genUpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GoBank"
+        ]
+      }
     }
   },
   "definitions": {
@@ -148,6 +182,31 @@
         "refreshTokenExpiresAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "genUpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "genUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/genUser"
         }
       }
     },

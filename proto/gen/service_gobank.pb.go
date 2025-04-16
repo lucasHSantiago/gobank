@@ -26,28 +26,34 @@ var File_service_gobank_proto protoreflect.FileDescriptor
 
 const file_service_gobank_proto_rawDesc = "" +
 	"\n" +
-	"\x14service_gobank.proto\x12\x03gen\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x15rpc_create_user.proto\x1a\x14rpc_login_user.proto2\xc0\x02\n" +
+	"\x14service_gobank.proto\x12\x03gen\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x15rpc_create_user.proto\x1a\x14rpc_login_user.proto\x1a\x15rpc_update_user.proto2\xcb\x03\n" +
 	"\x06GoBank\x12\x90\x01\n" +
 	"\n" +
-	"CreateUser\x12\x16.gen.CreateUserRequest\x1a\x17.gen.CreateUserResponse\"Q\x92A4\x12\x0fCreate new user\x1a!Use this API to create a new user\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/create_user\x12\xa2\x01\n" +
+	"CreateUser\x12\x16.gen.CreateUserRequest\x1a\x17.gen.CreateUserResponse\"Q\x92A4\x12\x0fCreate new user\x1a!Use this API to create a new user\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/create_user\x12\x88\x01\n" +
+	"\n" +
+	"UpdateUser\x12\x16.gen.UpdateUserRequest\x1a\x17.gen.UpdateUserResponse\"I\x92A,\x12\vUpdate user\x1a\x1dUse this API to update a user\x82\xd3\xe4\x93\x02\x14:\x01*2\x0f/v1/update_user\x12\xa2\x01\n" +
 	"\tLoginUser\x12\x15.gen.LoginUserRequest\x1a\x16.gen.LoginUserResponse\"f\x92AJ\x12\n" +
 	"Login user\x1a<Use this API to login user and get access and refresh tokens\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/login_userB{\x92AL\x12J\n" +
 	"\vGo Bank API\"6\n" +
-	"\x11Lucas H. Santiago\x12!https://github.com/lucashsantiago2\x031.1Z*github.com/lucasHSantiago/gobank/proto/genb\x06proto3"
+	"\x11Lucas H. Santiago\x12!https://github.com/lucashsantiago2\x031.2Z*github.com/lucasHSantiago/gobank/proto/genb\x06proto3"
 
 var file_service_gobank_proto_goTypes = []any{
 	(*CreateUserRequest)(nil),  // 0: gen.CreateUserRequest
-	(*LoginUserRequest)(nil),   // 1: gen.LoginUserRequest
-	(*CreateUserResponse)(nil), // 2: gen.CreateUserResponse
-	(*LoginUserResponse)(nil),  // 3: gen.LoginUserResponse
+	(*UpdateUserRequest)(nil),  // 1: gen.UpdateUserRequest
+	(*LoginUserRequest)(nil),   // 2: gen.LoginUserRequest
+	(*CreateUserResponse)(nil), // 3: gen.CreateUserResponse
+	(*UpdateUserResponse)(nil), // 4: gen.UpdateUserResponse
+	(*LoginUserResponse)(nil),  // 5: gen.LoginUserResponse
 }
 var file_service_gobank_proto_depIdxs = []int32{
 	0, // 0: gen.GoBank.CreateUser:input_type -> gen.CreateUserRequest
-	1, // 1: gen.GoBank.LoginUser:input_type -> gen.LoginUserRequest
-	2, // 2: gen.GoBank.CreateUser:output_type -> gen.CreateUserResponse
-	3, // 3: gen.GoBank.LoginUser:output_type -> gen.LoginUserResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	1, // 1: gen.GoBank.UpdateUser:input_type -> gen.UpdateUserRequest
+	2, // 2: gen.GoBank.LoginUser:input_type -> gen.LoginUserRequest
+	3, // 3: gen.GoBank.CreateUser:output_type -> gen.CreateUserResponse
+	4, // 4: gen.GoBank.UpdateUser:output_type -> gen.UpdateUserResponse
+	5, // 5: gen.GoBank.LoginUser:output_type -> gen.LoginUserResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -60,6 +66,7 @@ func file_service_gobank_proto_init() {
 	}
 	file_rpc_create_user_proto_init()
 	file_rpc_login_user_proto_init()
+	file_rpc_update_user_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
