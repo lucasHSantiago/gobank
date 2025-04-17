@@ -23,14 +23,20 @@ require (
 
 require (
 	github.com/golang-migrate/migrate/v4 v4.18.2
+	github.com/hibiken/asynq v0.25.1
 	github.com/rs/zerolog v1.34.0
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
+	github.com/redis/go-redis/v9 v9.7.3 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
+	golang.org/x/time v0.11.0 // indirect
 )
 
 require (
