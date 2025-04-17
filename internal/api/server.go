@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -31,7 +32,9 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	}
 
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
-		v.RegisterValidation("currency", validCurrency)
+		if err = v.RegisterValidation("currency", validCurrency); err != nil {
+			log.Fatal("cannot bind validation: %w", err)
+		}
 	}
 
 	server.setupRouter()

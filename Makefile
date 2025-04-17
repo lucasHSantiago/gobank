@@ -57,3 +57,6 @@ proto:
 grpcui:
 	grpcui -plaintext localhost:9090
 
+.PHONY: redis
+redis:
+	docker run --name redis -p 6379:6379 -d redis:7.4.2-alpine

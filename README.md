@@ -17,3 +17,5 @@ Functionalities:
 - gRPC Gateway
 - OpenAPI documentation for gRPC
 - SwaggerUI
+- gRPC interceptor
+- Redis Queue (with asynq)
