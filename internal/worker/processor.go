@@ -31,7 +31,7 @@ func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store) TaskPr
 				CriticalQueue: 10,
 				DefaultQueue:  5,
 			},
-			ErrorHandler: asynq.ErrorHandlerFunc(func(ctx context.Context, task *asynq.Task, err error) {
+			ErrorHandler: asynq.ErrorHandlerFunc(func(_ context.Context, task *asynq.Task, err error) {
 				log.Error().
 					Err(err).
 					Str("type", task.Type()).

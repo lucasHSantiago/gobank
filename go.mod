@@ -24,6 +24,7 @@ require (
 require (
 	github.com/golang-migrate/migrate/v4 v4.18.2
 	github.com/hibiken/asynq v0.25.1
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/rs/zerolog v1.34.0
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb
 )
