@@ -22,6 +22,10 @@ migrateup:
 migratedown:
 	migrate -path internal/db/migrations -database "postgresql://postgres:admin@localhost:5432/gobank?sslmode=disable" -verbose down $(or $(n))
 
+.PHONY: new_migration
+new_migration:
+	migrate create -ext sql -dir internal/db/migrations -seq $(name)
+
 .PHONY: sqlc
 sqlc:
 	sqlc generate
