@@ -45,6 +45,7 @@ grpc:
 .PHONY: mock
 mock:
 	mockgen -package mockdb -destination internal/db/mock/store.go github.com/lucasHSantiago/gobank/internal/db/sqlc Store
+	mockgen -package mockwk -destination internal/worker/mock/distributor.go github.com/lucasHSantiago/gobank/internal/worker TaskDistributor
 
 .PHONY: proto
 proto:
