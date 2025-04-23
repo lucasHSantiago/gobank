@@ -14,6 +14,7 @@ import (
 	"github.com/google/uuid"
 	mockdb "github.com/lucasHSantiago/gobank/internal/db/mock"
 	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
 	"github.com/lucasHSantiago/gobank/internal/token"
 	"github.com/stretchr/testify/require"
 )
@@ -71,7 +72,7 @@ func TestRenewAccessTokenAPI(t *testing.T) {
 		{
 			name: "ErrorVerifyToken",
 			setupToken: func(maker token.Maker) (gin.H, *token.Payload, db.Session) {
-				refreshToken, refreshPayload, err := maker.CreateToken(user.Username, -time.Minute)
+				refreshToken, refreshPayload, err := maker.CreateToken(user.Username, util.DepositorRole, -time.Minute)
 				require.NoError(t, err)
 				require.NotEmpty(t, refreshToken)
 				require.NotEmpty(t, refreshPayload)
@@ -271,7 +272,7 @@ func randomSession(user db.User, refreshToken string) db.Session {
 }
 
 func randomToken(t *testing.T, maker token.Maker, user db.User) (string, *token.Payload) {
-	refreshToken, refreshPayload, err := maker.CreateToken(user.Username, time.Minute*5)
+	refreshToken, refreshPayload, err := maker.CreateToken(user.Username, util.DepositorRole, time.Minute*5)
 	require.NoError(t, err)
 	require.NotEmpty(t, refreshToken)
 	require.NotEmpty(t, refreshPayload)

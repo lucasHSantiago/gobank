@@ -8,12 +8,13 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/lucasHSantiago/gobank/internal/db/util"
 	"github.com/lucasHSantiago/gobank/internal/token"
 	"github.com/stretchr/testify/require"
 )
 
 func addAuthorization(t *testing.T, request *http.Request, tokenMaker token.Maker, authorizationType string, username string, duration time.Duration) {
-	token, payload, err := tokenMaker.CreateToken(username, duration)
+	token, payload, err := tokenMaker.CreateToken(username, util.DepositorRole, duration)
 	require.NoError(t, err)
 	require.NotEmpty(t, payload)
 
