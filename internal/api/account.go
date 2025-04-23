@@ -1,12 +1,10 @@
 package api
 
 import (
-	"database/sql"
 	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lib/pq"
 	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
 	"github.com/lucasHSantiago/gobank/internal/token"
 )
@@ -33,12 +31,10 @@ func (server *Server) createAccount(ctx *gin.Context) {
 
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
-		if pqErr, ok := err.(*pq.Error); ok {
-			switch pqErr.Code.Name() {
-			case "foreign_key_violation", "unique_violation":
-				ctx.JSON(http.StatusForbidden, errorResponse(err))
-				return
-			}
+		errCode := db.ErrorCode(err)
+		if errCode == db.ForeignKeyViolation || errCode == db.UniqueViolation {
+			ctx.JSON(http.StatusForbidden, errorResponse(err))
+			return
 		}
 
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
@@ -159,7 +155,7 @@ func (server *Server) deleteAccount(ctx *gin.Context) {
 func (server *Server) getAccountInternal(ctx *gin.Context, accountId int64) *db.Account {
 	account, err := server.store.GetAccount(ctx, accountId)
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
+		if errors.Is(err, db.ErrRecordNotFound) {
 			err := errors.New("account doesn't exist")
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
 			return nil

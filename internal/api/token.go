@@ -1,12 +1,13 @@
 package api
 
 import (
-	"database/sql"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	db "github.com/lucasHSantiago/gobank/internal/db/sqlc"
 )
 
 type renewAccessTokenRequest struct {
@@ -33,7 +34,7 @@ func (server *Server) renewAccessToken(ctx *gin.Context) {
 
 	session, err := server.store.GetSession(ctx, refreshPayload.ID)
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, db.ErrRecordNotFound) {
 			err := fmt.Errorf("no token found")
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
 			return
