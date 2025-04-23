@@ -47,8 +47,8 @@ func main() {
 
 	runDBMigration(config.MigrationURL, config.DBSource)
 
-	var grpc bool
-	flag.BoolVar(&grpc, "grpc", false, "Run server as a gRPC")
+	var gin bool
+	flag.BoolVar(&gin, "gin", false, "Run server as a gRPC")
 
 	flag.Parse()
 
@@ -58,13 +58,13 @@ func main() {
 		Addr: config.RedisAddress,
 	}
 
-	if grpc {
+	if gin {
+		runGinServer(config, store)
+	} else {
 		taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
 		go runTaskProcessor(config, redisOpt, store)
 		go runGatewayServer(config, store, taskDistributor)
 		runGrpcServer(config, store, taskDistributor)
-	} else {
-		runGinServer(config, store)
 	}
 }
 

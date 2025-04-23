@@ -38,9 +38,9 @@ test:
 server:
 	go run ./cmd/gobank/main.go
 	
-.PHONY: grpc
+.PHONY: gin
 grpc:
-	go run ./cmd/gobank/main.go -grpc
+	go run ./cmd/gobank/main.go -gin
 
 .PHONY: mock
 mock:
