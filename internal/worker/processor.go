@@ -16,6 +16,7 @@ const (
 
 type TaskProcessor interface {
 	Start() error
+	Shutdown()
 	ProcessTaskSendVerifyEmail(ctx context.Context, task *asynq.Task) error
 }
 
@@ -49,4 +50,16 @@ func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store, mailer
 		store:  store,
 		mailer: mailer,
 	}
+}
+
+func (r *RedisTaskProcessor) Start() error {
+	mux := asynq.NewServeMux()
+
+	mux.HandleFunc(TaskSendVerifyEmail, r.ProcessTaskSendVerifyEmail)
+
+	return r.server.Start(mux)
+}
+
+func (r *RedisTaskProcessor) Shutdown() {
+	r.server.Shutdown()
 }

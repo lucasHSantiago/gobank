@@ -78,11 +78,3 @@ func (r *RedisTaskProcessor) ProcessTaskSendVerifyEmail(ctx context.Context, tas
 
 	return nil
 }
-
-func (r *RedisTaskProcessor) Start() error {
-	mux := asynq.NewServeMux()
-
-	mux.HandleFunc(TaskSendVerifyEmail, r.ProcessTaskSendVerifyEmail)
-
-	return r.server.Start(mux)
-}
